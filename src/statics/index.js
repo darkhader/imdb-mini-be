@@ -1,0 +1,1 @@
+export const ROOT_API = "https://api.imdb-mini.xyz";
