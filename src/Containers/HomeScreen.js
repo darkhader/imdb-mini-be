@@ -16,26 +16,26 @@ class HomeScreen extends Component {
         sortNumber: 1,
         total: 0
     };
-  
+
     componentDidMount() {
         // this.setState({ searchString: this.props.onSearchChanged });
-       
+
 
         axios
             .get(`${ROOT_API}/api/movies?page=${this.state.pageNumber}&sort=${this.state.sortNumber}`)
             .then(response => {
-                
+
                 this.setState({
                     movies: response.data.movies,
                     total: response.data.total,
-                    
+
                 });
 
             })
             .catch(err => console.error(err));
     }
 
-  
+
 
 
 
@@ -58,20 +58,21 @@ class HomeScreen extends Component {
                     movies: response.data.movies,
                     sortNumber
                 });
-              
+
 
             })
             .catch(err => console.error(err));
     }
     _onSearchChanged = text => this.setState({ searchString: text });
     render() {
-       
-
-        const displayedMovieImages = this.state.movies.filter(
-            movie =>
-                movie.title.toLowerCase().includes(this.state.searchString) ||
-                movie.description.toLowerCase().includes(this.state.searchString) ||
-                movie.year.includes(this.state.searchString)
+        const displayedMovieImages = this.state.movies.length > 0 && this.state.movies?.filter(
+            movie => {
+                if (movie) {
+                    return   movie?.title?.toLowerCase()?.includes(this.state.searchString) ||
+                        movie?.description?.toLowerCase()?.includes(this.state.searchString) ||
+                        movie?.year?.includes(this.state.searchString)
+                }
+            }
         );
 
 

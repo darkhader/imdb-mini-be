@@ -11,10 +11,12 @@ export default class Trailer extends Component {
         visible1: "visible"
     }
     componentDidMount() {
-
+        
         if (this.props.title) {
+            let title =  this.props.title.replace(/\s/g, "-").replace('#', '');
+            let api =   `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${title + "trailer"}&type=video&key=AIzaSyC79luuM8BmEdNXNWfGQPh_gfaFdbdqjGQ` 
             axios
-                .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${this.props.title + "trailer"}'&type=video&key=AIzaSyA9gQZ-oYomFypZN7PsupZJtOfQqA6Q3qw`)
+                .get(api)
                 .then(data => {
                     const items = data.data.items;
                     for (let i = 0; i < items.length; i++) {

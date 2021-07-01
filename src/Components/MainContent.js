@@ -7,7 +7,7 @@ class MainContent extends Component {
     render() {
         const { addActor,addLike } = this.props;
    
-        const allMovieImages = this.props.movies.map(movie => (
+        const allMovieImages =  this.props.movies.length > 0 && this.props.movies?.map(movie => (
             <div key={movie._id} className="col-3 anhnho">
                 <Link to={`/movies/${movie._id}`}>
                     <MovieImage

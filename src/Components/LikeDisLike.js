@@ -68,8 +68,8 @@ class LikeDisLike extends Component {
             <div className="like">
 
 
-                <button onClick={this._onClick} type="button" class="btn btn-info">
-                    <span class="glyphicon glyphicon-triangle-top"></span>
+                <button className="ml-2 btn btn-info" onClick={this._onClick} type="button">
+                    <span className="glyphicon glyphicon-triangle-top"></span>
                 </button>
                 <span>          {this.props.movie.like && this.props.movie.like.length}</span>
 
