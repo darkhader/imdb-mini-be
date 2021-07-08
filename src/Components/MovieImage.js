@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MainContent from "../Components/MainContent";
+import RecMovie from "../Components/RecMovie";
 import { ROOT_API } from '../statics';
 import axios from "../axios";
 import ActorInMovie from "./ActorInMovie";
@@ -52,18 +52,26 @@ class MovieImage extends Component {
                     hiddenReview={this.props.hiddenReview}
                     movie={this.props.movie}
                     addLike={this.props.addLike} />
-                <h2>{this.props.movie.title} <span>({this.props.movie.year})</span></h2>
+                <h2>{this.props.movie.title} 
+                {
+                    this.props.movie.year &&
+                    <span>({this.props.movie.year})</span>
+                }
+                </h2>
                 <div className="ml-2" >Thể loại:  {this.props.movie.description}</div>
                 <div className="ml-2">Thời lượng: {this.props.movie.duration}</div>
                 <Trailer
                     hiddenReview={this.props.hiddenReview}
                     title={this.props.movie.title} />
+                <h2 className="rec-title">Phim gợi ý</h2>
+                <RecMovie
+                    movies={this.state.moviesRecomended}
+                    _id={this.props.movie._id} />
                 <ActorInMovie
                     hiddenReview={this.props.hiddenReview}
                     movie={this.props.movie}
                     addActor={this.props.addActor} />
-                <MainContent
-                    movies={this.state.moviesRecomended} />
+
                 {this.props.hiddenReview ? "" : <p ><h2>Review</h2><br /> {reviews}</p>}
 
             </div>

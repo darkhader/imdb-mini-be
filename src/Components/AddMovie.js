@@ -5,6 +5,14 @@ import "../App.css";
 import { ROOT_API } from '../statics';
 import NavBar from "../Components/NavBar";
 import axiosNative from 'axios';
+import S3 from 'react-aws-s3';
+const config = {
+    bucketName: 'imdb-mini',
+    region: 'ap-southeast-1',
+    accessKeyId: 'AKIASQJBPNK4TQQOGS66',
+    secretAccessKey: '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',
+}
+const ReactS3Client = new S3(config);
 class AddMovie extends Component {
     constructor(props) {
         super(props);
@@ -31,23 +39,21 @@ class AddMovie extends Component {
         }
         let formData = new FormData();
         formData.append("file", this.state.file);
-        axiosNative({
-            url: "https://upload.techkids.vn/upload",
-            method: "POST",
-            data: formData
-        }).then(response => {
-            let imgUrl = response.data;
-            movieData.image = imgUrl;
-            axios
-                .post(`${ROOT_API}/api/movies`, movieData)
-                .then(response => {
-                    console.log(response.data);
-                    if (response.data.success) {
-                        window.location.href = "https://imdb-mini.xyz/createNew";
-                    }
-                })
-                .catch(err => console.log(err))
-        })
+        ReactS3Client
+            .uploadFile(this.state.file)
+            .then(response => {
+                let imgUrl = response.location;
+                movieData.image = imgUrl;
+                axios
+                    .post(`${ROOT_API}/api/movies`, movieData)
+                    .then(response => {
+                        console.log(response.data);
+                        if (response.data.success) {
+                            window.location.href = "https://imdb-mini.xyz/createNew";
+                        }
+                    })
+                    .catch(err => console.log(err))
+            })
     }
 
     handleInputChange = (event) => {
@@ -108,4 +114,4 @@ class AddMovie extends Component {
     }
 }
 
-export default AddMovie;  
+export default AddMovie;

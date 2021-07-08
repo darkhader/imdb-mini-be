@@ -115,15 +115,13 @@ class DetailScreen extends Component {
             .catch(err => console.error(err));
     }
     addLike = (like) => {
-        this.setState({
-            loading: true
-        })
         const { movie } = this.state;
-        console.log(like, movie)
         axios
             .put(`${ROOT_API}/api/movies/${this.props.match.params.movieId}`, {
-                like: like
+                like: like,
+                listmovie: this.props.movieLike
             }
+                
             )
             .then(response => {
                 if (response.data.success) {

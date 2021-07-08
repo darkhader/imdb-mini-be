@@ -5,6 +5,14 @@ import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import "../App.css";
 import { ROOT_API } from '../statics';
 import NavBar from "../Components/NavBar";
+import S3 from 'react-aws-s3';
+const config = {
+    bucketName: 'imdb-mini',
+    region: 'ap-southeast-1',
+    accessKeyId: 'AKIASQJBPNK4TQQOGS66',
+    secretAccessKey: '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',
+}
+const ReactS3Client = new S3(config);
 class AddActor extends Component {
 
     constructor(props) {
@@ -33,12 +41,10 @@ class AddActor extends Component {
         console.log(this.state.file)
         formData.append("file", this.state.file);
 
-        axiosNative({
-            url: "https://upload.techkids.vn/upload",
-            method: "POST",
-            data: formData
-        }).then(response => {
-            let imgUrl = response.data;
+        ReactS3Client
+        .uploadFile(this.state.file)
+        .then(response => {
+            let imgUrl = response.location;
             actorData.image = imgUrl;
             axios
                 .post(`${ROOT_API}/api/actors`, actorData)

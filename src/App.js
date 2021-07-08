@@ -30,9 +30,8 @@ class App extends Component {
             if (response.data.success) {
                 this.setState({
                     username: response.data.userFound.name,
-
+                    movieLike: response.data.userFound.movieLike
                 })
-              
 
             }
             
@@ -54,7 +53,7 @@ class App extends Component {
         }).then(response => {
             this.setState({
                 username: response.data.userFound.name,
-
+                movieLike: response.data.userFound.movieLike
             })
 
 
@@ -113,6 +112,7 @@ class App extends Component {
                                 onNameSignin={this._onNameSignin}
                                 onCMTSignin={this._onCMTSignin}
                                 username={this.state.username}
+                                movieLike={this.state.movieLike}
                                 onLogin={this._onLogin}
                             />;
                         }}

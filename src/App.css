@@ -24,6 +24,18 @@ body {
 
 .main_content {}
 
+.rec-title {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.rec-movie {
+    width: 230%;
+    position: relative;
+    left: -475px;
+}
+
 .row {}
 
 .row32 {
@@ -58,6 +70,10 @@ body {
 .anhnho .movie_image {
     width: 255px;
     height: 490px;
+}
+
+.anhnho .rec-title {
+    display: none;
 }
 
 .anhnho .actor_image {
